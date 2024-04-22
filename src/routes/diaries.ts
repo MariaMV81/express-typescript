@@ -1,6 +1,6 @@
-import { newDiaryEntry } from './../types.d';
 import express from "express";
 import diaryServices from '../services/diaryServices';
+import toNewDiaryEntry from '../utils';
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.post("/", (_req, res) => {
     try {
         const { date, weather, visibility, comment } = _req.body;
         const newDiaryEntry = toNewDiaryEntry(_req.body);
-        const addedDiaryEntry = diaryServices.addDiary({
+         diaryServices.addDiary({
             date,
             weather,
             visibility,
@@ -29,7 +29,7 @@ router.post("/", (_req, res) => {
         });
 
         res.json(newDiaryEntry);
-    } catch (e) {
+    } catch (e:any) {
         res.status(400).send(e.message)
     }
 
